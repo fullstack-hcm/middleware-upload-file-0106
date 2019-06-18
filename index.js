@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-const UPLOAD_CONFIG = require('./multer.config');
+const UPLOAD_CONFIG = require('./utils/multer.config');
 
 const USERS_ROUTERS = require('./routers/users');
 
