@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
 
 const UPLOAD_CONFIG = require('./utils/multer.config');
 
@@ -11,6 +12,8 @@ app.use(logTime);
 
 app.set('views', './views');
 app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.static('./public/'));
 
 app.use('/user', USERS_ROUTERS);
 
