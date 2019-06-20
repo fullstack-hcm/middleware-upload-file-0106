@@ -34,4 +34,21 @@ app.post('/upload-image-demo', UPLOAD_CONFIG.single('avatar'), (req, res) => {
     console.log({ file })
 }); 
 
+/**
+ * UPLOAD MULTI IMAGE
+ */
+const configImages = [
+    {
+        name: 'main_image', maxCount: 1
+    }, 
+    {
+        name: 'demo_image', maxCount: 2
+    }
+]
+
+app.post('/upload-multiple-image', UPLOAD_CONFIG.fields(configImages), (req, res) => {
+    const files = req.files;
+    res.send({ files });
+})
+
 app.listen(3000, ()=> console.log(`server started at port 3000`));
