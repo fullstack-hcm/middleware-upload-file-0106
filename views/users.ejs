@@ -12,6 +12,9 @@
         <%users.forEach(item => {%>
             <li><%= item.username %></li>
             <img src="/upload/<%=item.image%>" height="60" width="60" alt="">
+            <a href="/user/remove2/<%=item.username%>">
+                <button>Remove</button>
+            </a>
         <%})%>
     </ul>
     <br><br>
