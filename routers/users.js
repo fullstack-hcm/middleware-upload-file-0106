@@ -9,6 +9,11 @@ const users = [
     { username: 'acb', image: 'abc.png' },
     { username: 'cde', image: 'cde.png' },
 ]
+
+const usersFake = [
+    { username: 'acb', images: ['abc.png'] },
+    { username: 'cde', images: ['cde.png', 'cde2.png'] },
+]
 /**
  * ROUTER-LEVEL MIDDLEWARE
  */
@@ -51,5 +56,24 @@ router.get('/remove/:username', async (req, res) => {
     return res.json({ message: 'THANH CONGs' });   
 });
 
+/**
+ * BTVN
+ */
 
+router.get('/list-fake', (req, res) => {
+    res.render('users-demo2', { users: usersFake })
+});
+
+router.get('/remove/:username', async (req, res) => {
+    const { username } = req.params;
+    let indexFinded = usersFake.findIndex(user => Object.is(username.toString(), user.username.toString())); // 0
+    const infoUserRemove = usersFake[indexFinded]; // { username: 'abc', images: ['abc.png', 'abc2.png'] }
+    
+    await infoUserRemove.images.forEach(async img => {
+        const imagePathRemove = path.resolve(__dirname, `../public/upload/${img}`);
+        await REMOVE_IMAGE(imagePathRemove, usersFake, indexFinded);
+    })
+    
+    return res.json({ message: 'remove_success' });
+});
 module.exports = router;
